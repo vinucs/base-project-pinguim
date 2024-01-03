@@ -13,7 +13,7 @@ COPY --chown=node:node package*.json ./
 ENV PORT=3000
 ENV NODE_ENV=Production
 RUN npm ci
-COPY --from=builder /app/dist ./dist
+# COPY --from=builder /app/dist ./dist
 EXPOSE ${PORT}
 
 CMD [ "npm", "run", "start:dev" ]
