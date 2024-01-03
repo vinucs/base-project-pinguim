@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always    
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 27017:27017
+      
+  app:
+    container_name: project-base-pinguim
+    image: project-base-pinguim-dev:1.0.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: localhost
+      DB_PORT: 27017
+      DB_DATABASE: db-dev
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
